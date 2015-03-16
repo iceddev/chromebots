@@ -19,7 +19,12 @@
     "ci": "zuul test/*.js --phantom",
     "serve": "webpack-dev-server"
   },
-  "dependencies": {},
+  "dependencies": {
+    "hoek": "^2.11.1",
+    "holovisor": "^0.1.1",
+    "irken": "^0.4.1",
+    "react": "^0.13.0"
+  },
   "devDependencies": {
     "babel-core": "^4.7.12",
     "babel-loader": "^4.2.0",

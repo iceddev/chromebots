@@ -1,3 +1,19 @@
 'use strict';
 
-console.log('hello world');
+const hoek = require('hoek');
+const Irken = require('irken');
+
+const app = new Irken();
+
+function onRegister(err){
+  hoek.assert(!err, 'Error registering plugins: ' + (err && err.message));
+  app.render();
+}
+
+const plugins = [
+  {
+    register: require('holovisor')
+  }
+];
+
+app.register(plugins, onRegister);
