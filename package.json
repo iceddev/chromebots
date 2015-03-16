@@ -15,10 +15,21 @@
     "index.js"
   ],
   "scripts": {
-    "test": "zuul test/*.js --local --open"
+    "test": "zuul test/*.js --local --open",
+    "ci": "zuul test/*.js --phantom",
+    "serve": "webpack-dev-server"
   },
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-core": "^4.7.12",
+    "babel-loader": "^4.2.0",
+    "expect": "^1.6.0",
+    "mocha": "^2.2.1",
+    "phantomjs": "git://github.com/phated/phantomjs",
+    "webpack": "^1.7.3",
+    "webpack-dev-server": "^1.7.0",
+    "zuul": "^2.1.1"
+  },
   "keywords": [
     "chrome",
     "chromebots",
