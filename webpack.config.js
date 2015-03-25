@@ -13,6 +13,10 @@ module.exports = {
   module: {
     loaders: [
       {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
+      {
         test: /.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader?optional=runtime'
@@ -25,7 +29,10 @@ module.exports = {
   },
   resolve: {
     // support aliases against linked modules
-    root: path.join(__dirname, 'node_modules')
+    root: path.join(__dirname, 'node_modules'),
+    alias: {
+      fs: 'browserify-fs'
+    }
   },
   // crash on invalid bundle
   bail: true,

@@ -20,6 +20,7 @@
     "serve": "webpack-dev-server"
   },
   "dependencies": {
+    "frylord": "^0.4.0",
     "hoek": "^2.11.1",
     "holovisor": "^0.1.1",
     "irken": "^0.4.1",
@@ -28,7 +29,9 @@
   "devDependencies": {
     "babel-core": "^4.7.12",
     "babel-loader": "^4.2.0",
+    "browserify-fs": "^1.0.0",
     "expect": "^1.6.0",
+    "json-loader": "^0.5.1",
     "mocha": "^2.2.1",
     "phantomjs": "git://github.com/phated/phantomjs",
     "webpack": "^1.7.3",

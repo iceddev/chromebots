@@ -12,6 +12,9 @@ function onRegister(err){
 
 const plugins = [
   {
+    register: require('frylord')
+  },
+  {
     register: require('holovisor')
   }
 ];
