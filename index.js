@@ -13,6 +13,12 @@ function onRegister(err){
 const plugins = [
   {
     register: require('holovisor')
+  },
+  {
+    register: require('./plugins/editor'),
+    options: {
+      initial: ''
+    }
   }
 ];
 

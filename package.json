@@ -20,6 +20,7 @@
     "serve": "webpack-dev-server"
   },
   "dependencies": {
+    "codemirror": "^5.1.0",
     "hoek": "^2.11.1",
     "holovisor": "^0.1.1",
     "irken": "^0.4.1",
@@ -28,9 +29,11 @@
   "devDependencies": {
     "babel-core": "^4.7.12",
     "babel-loader": "^4.2.0",
+    "css-loader": "^0.9.1",
     "expect": "^1.6.0",
     "mocha": "^2.2.1",
     "phantomjs": "git://github.com/phated/phantomjs",
+    "style-loader": "^0.9.0",
     "webpack": "^1.7.3",
     "webpack-dev-server": "^1.7.0",
     "zuul": "^2.1.1"
