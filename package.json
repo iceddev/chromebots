@@ -15,6 +15,9 @@
     "index.js"
   ],
   "scripts": {
+    "build": "gulp",
+    "postinstall": "gulp postinstall",
+    "release": "gulp gh-release",
     "test": "zuul test/*.js --local --open",
     "ci": "zuul test/*.js --phantom",
     "serve": "webpack-dev-server"
@@ -26,6 +29,12 @@
     "react": "^0.13.0"
   },
   "devDependencies": {
+    "gulp": "git://github.com/gulpjs/gulp#4.0",
+    "gulp-util": "^3.0.4",
+    "gulp-zip": "^2.0.3",
+    "del": "^1.1.1",
+    "chalk": "^1.0.0",
+    "babel": "^4.5.1",
     "babel-core": "^4.7.12",
     "babel-loader": "^4.2.0",
     "expect": "^1.6.0",

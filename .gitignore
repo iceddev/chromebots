@@ -29,3 +29,7 @@ node_modules
 
 # Garbage files
 .DS_Store
+
+# Generated files
+bundle.js
+dist/
