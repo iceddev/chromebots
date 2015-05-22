@@ -5,38 +5,63 @@ var path = require('path');
 var webpack = require('webpack');
 
 var shouldWatch = (process.argv.indexOf('--watch') !== -1);
-var moduleLocation = path.join(__dirname, 'node_modules');
 
 module.exports = {
+  devtool: 'source-map',
   entry: './index.js',
   output: {
     path: __dirname,
     filename: 'bundle.js'
   },
   module: {
+    noParse: [
+      /pbasic/i
+    ],
     loaders: [
       {
-        test: /.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader?optional=runtime'
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
+      {
+        test: /\.js$/,
+        exclude: [
+          /node_modules/,
+          /pbasic/i
+        ],
+        loaders: [
+          'babel-loader?optional=runtime'
+        ]
       }
     ]
   },
   plugins: [
-    new webpack.IgnorePlugin(/package.json/, /levelup/)
+    new webpack.optimize.DedupePlugin()
   ],
   resolveLoader: {
-    // support loaders against linked modules
-    root: moduleLocation
+    // this is a workaround for loaders being applied
+    // to linked modules
+    root: path.join(__dirname, 'node_modules')
   },
   resolve: {
-    // support aliases against linked modules
-    root: moduleLocation,
+    // this is a workaround for aliasing a top level dependency
+    // inside a symlinked subdependency
+    root: path.join(__dirname, 'node_modules'),
     alias: {
-      fs: 'browserify-fs'
+      // replacing `fs` with a browser-compatible version
+      fs: 'browserify-fs',
+      'graceful-fs': 'browserify-fs',
+      memdown: 'level-js',
+      serialport: 'browser-serialport'
     }
   },
-  // crash on invalid bundle
   bail: true,
   watch: shouldWatch
 };

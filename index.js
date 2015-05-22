@@ -1,22 +1,54 @@
 'use strict';
 
-const hoek = require('hoek');
 const Irken = require('irken');
 
-const app = new Irken();
+let app = new Irken();
 
-function onRegister(err){
-  hoek.assert(!err, 'Error registering plugins: ' + (err && err.message));
-  app.render();
-}
-
-const plugins = [
+var plugins = [
   {
-    register: require('frylord')
+    register: require('frylord'),
+    options: {
+      useTempFiles: true
+    }
+  },
+  {
+    register: require('snacks')
   },
   {
     register: require('holovisor')
+  },
+  {
+    register: require('skrim')
+  },
+  {
+    register: require('iggins')
+  },
+  {
+    register: require('./plugins/appbar'),
+    options: {
+      title: 'Chromebots'
+    }
+  },
+  {
+    register: require('./plugins/editor'),
+    options: {
+      initial: ''
+    }
+  },
+  {
+    register: require('./plugins/sidebar'),
+    options: {
+      defaultProject: 'new-project'
+    }
   }
 ];
 
-app.register(plugins, onRegister);
+app.register(plugins, function(err){
+  console.log('registered', err, app);
+  app.render(function(err){
+    console.log('rendered', err);
+  });
+});
+
+// for debugging purposes
+window.app = app;

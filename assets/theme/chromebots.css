@@ -1,0 +1,57 @@
+/* PBASIC Full Syntax theme for codemirror */
+
+/* Color scheme */
+
+.cm-s-chromebots.CodeMirror {
+  background-color:#ffffff;
+  color:#000000;
+  line-height:1.4375;
+}
+.cm-s-chromebots .cm-comment {color:#008000}
+.cm-s-chromebots .cm-keyword, .cm-s-chromebots .cm-property {color:#000000}
+.cm-s-chromebots .cm-atom,.cm-s-chromebots .cm-number {color:#000000}
+.cm-s-chromebots .cm-node,.cm-s-chromebots .cm-tag {color:#000000}
+.cm-s-chromebots .cm-string {color:#ff0000}
+.cm-s-chromebots .cm-variable,.cm-s-chromebots .cm-qualifier {color:#000000}
+
+.cm-etDirective {color: #008080}
+.cm-etTargetModule {color: #008080}
+.cm-etIOFormatter {color: #000080}
+.cm-etVariable {color: #800080}
+.cm-etConstant {color: #800080}
+.cm-etCCDirective {color: #808080}
+.cm-etInstruction {color: #0000ff}
+
+.CodeMirror-selectedtext {color: #ffffff !important;}
+.CodeMirror-selected {background: #800000 !important;}
+.cm-searching {
+  color: #00ff00 !important; 
+  background-color: #000000 !important;
+}
+
+/* Editor styling */
+
+.cm-s-chromebots pre {
+  padding:0;
+}
+
+.cm-s-chromebots .CodeMirror-gutters {
+  border:none;
+  border-right:10px solid transparent;
+  background-color:transparent;
+}
+
+.cm-s-chromebots .CodeMirror-linenumber {
+  padding:0;
+  color:#e0e2e5;
+}
+
+.cm-s-chromebots .CodeMirror-guttermarker { color: #1d75b3; }
+.cm-s-chromebots .CodeMirror-guttermarker-subtle { color: #e0e2e5; }
+
+.cm-s-chromebots div.CodeMirror-cursor {
+  width: auto;
+  border: 0;
+  background: rgba(155,157,162,0.37);
+  z-index: 1;
+}
