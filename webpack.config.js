@@ -8,7 +8,7 @@ var shouldWatch = (process.argv.indexOf('--watch') !== -1);
 
 module.exports = {
   devtool: 'source-map',
-  entry: './index.js',
+  entry: './src/index.js',
   output: {
     path: __dirname,
     filename: 'bundle.js'
@@ -21,6 +21,10 @@ module.exports = {
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg|otf)$/,
+        loader: 'url-loader?limit=100000'
       },
       {
         test: /\.html$/,

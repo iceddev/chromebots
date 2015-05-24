@@ -24,19 +24,16 @@ var plugins = [
     register: require('iggins')
   },
   {
-    register: require('./plugins/appbar'),
-    options: {
-      title: 'Chromebots'
-    }
+    register: require('./app')
   },
   {
-    register: require('./plugins/editor'),
+    register: require('../plugins/editor'),
     options: {
       initial: ''
     }
   },
   {
-    register: require('./plugins/sidebar'),
+    register: require('../plugins/sidebar'),
     options: {
       defaultProject: 'new-project'
     }

@@ -1,0 +1,10 @@
+:local(.button) {
+  font-family: 'Helvetica Neue', Helvetica, Arial;
+  font-size: 16px;
+  color: #272822;
+  background-color: #f6dd25;
+  border: 0;
+  border-left: 1px solid #272822;
+  padding: 20px;
+  cursor: pointer;
+}

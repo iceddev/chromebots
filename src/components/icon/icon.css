@@ -1,0 +1,5 @@
+@import "../../../node_modules/open-iconic/font/css/open-iconic.css";
+
+:local(.icon) {
+  vertical-align: middle;
+}

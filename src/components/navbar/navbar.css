@@ -1,0 +1,5 @@
+:local(.navbar) {
+  display: flex;
+  background-color: #f6dd25;
+  height: 56px;
+}
