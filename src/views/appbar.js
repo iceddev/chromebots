@@ -9,7 +9,7 @@ const NavButton = require('../components/nav-button/nav-button');
 const NavDropdown = require('../components/nav-dropdown/nav-dropdown');
 const NavDropdownItem = require('../components/nav-dropdown-item/nav-dropdown-item');
 
-const { selectPort } = require('../actions/board');
+const { selectPort, refreshDevices } = require('../actions/board');
 
 const boardStore = require('../stores/board');
 
@@ -30,12 +30,17 @@ class Appbar extends React.Component {
   render(){
     const { port, devices } = this.props;
 
+    console.log(port);
+
     return (
       <Navbar>
         <img src="/assets/logo.png" />
-        <NavDropdown style={boardStyles} onValueChange={selectPort} value={port}>
+        <NavDropdown style={boardStyles} onClick={refreshDevices} onValueChange={selectPort} value={port}>
           {_.map(devices, componentizeDevice)}
         </NavDropdown>
+        <NavButton>
+          <Icon glyph="cog" />
+        </NavButton>
         <NavButton>
           Stop <Icon glyph="media-stop" />
         </NavButton>

@@ -5,20 +5,26 @@ const serial = require('serialport');
 
 const alt = require('../alt');
 
-const actions = require('../actions/board');
+const { selectPort, refreshDevices } = require('../actions/board');
 
 class BoardStore {
   constructor(){
     this.bindListeners({
-      onPortSelect: actions.selectPort
+      onPortSelect: selectPort,
+      onRefreshDevices: refreshDevices
     });
 
     this.state = {
       devices: [],
-      port: '/dev/tty.example'
+      port: null
     };
 
-    if(typeof chrome !== 'undefined'){
+    this.onRefreshDevices();
+  }
+
+  onRefreshDevices(){
+    if(typeof chrome === 'undefined' || typeof chrome.serial === 'undefined'){
+      console.warn('No access to Chrome APIs, skipping device listing');
       return;
     }
 
@@ -27,13 +33,19 @@ class BoardStore {
         console.error(err);
         return;
       }
-      console.log(devices);
 
       const devicePorts = _.pluck(devices, 'comName');
 
+      let port;
+      if(_.includes(devicePorts, this.state.port)){
+        port = this.state.port;
+      } else {
+        port = _.first(devicePorts);
+      }
+
       this.setState({
         devices: devicePorts,
-        port: _.first(devicePorts)
+        port: port
       });
     });
   }
