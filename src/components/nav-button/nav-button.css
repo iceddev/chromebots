@@ -7,4 +7,9 @@
   border-left: 1px solid #272822;
   padding: 20px;
   cursor: pointer;
+  outline: none;
+}
+
+:local(.button:active) {
+  box-shadow: inset 0px 0px 11px #272822;
 }
