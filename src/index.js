@@ -24,10 +24,7 @@ var plugins = [
     register: require('iggins')
   },
   {
-    register: require('./app')
-  },
-  {
-    register: require('../plugins/editor'),
+    register: require('./app'),
     options: {
       initial: ''
     }

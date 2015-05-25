@@ -30,8 +30,6 @@ class Appbar extends React.Component {
   render(){
     const { port, devices } = this.props;
 
-    console.log(port);
-
     return (
       <Navbar>
         <img src="/assets/logo.png" />
