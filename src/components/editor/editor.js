@@ -6,17 +6,16 @@ require('codemirror/addon/dialog/dialog');
 require('codemirror/addon/dialog/dialog.css');
 require('codemirror/addon/search/search');
 require('codemirror/addon/selection/mark-selection');
+require('codemirror/addon/edit/matchbrackets');
+require('codemirror/addon/edit/closebrackets');
 require('codemirror/lib/codemirror.css');
 require('codemirror/theme/monokai.css');
 
 const React = require('react');
 const CodeMirror = require('codemirror');
+const classnames = require('classnames');
 
-const styles = {
-  display: 'flex',
-  flex: 1,
-  flexDirection: 'column'
-};
+const css = require('./editor.css');
 
 class Editor extends React.Component {
 
@@ -31,14 +30,16 @@ class Editor extends React.Component {
   }
 
   componentDidMount(){
-    const { value } = this.props;
+    const { value, mode, theme } = this.props;
 
     const container = React.findDOMNode(this.container);
     const codeEditor = this.codeEditor = CodeMirror(container, {
       value: value,
-      mode: 'javascript',
-      theme: 'monokai',
-      lineNumbers: true
+      mode: mode,
+      theme: theme,
+      lineNumbers: true,
+      autoCloseBrackets: true,
+      matchBrackets: true
     });
 
     codeEditor.on('inputRead', this.onChange);
@@ -67,8 +68,12 @@ class Editor extends React.Component {
   }
 
   render(){
+    const { className } = this.props;
+
+    const classes = classnames(css.editor, className);
+
     return (
-      <div ref={(ref) => this.container = ref} style={styles} />
+      <div {...this.props} ref={(ref) => this.container = ref} className={classes} />
     );
   }
 }

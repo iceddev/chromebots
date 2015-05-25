@@ -8,10 +8,13 @@ var shouldWatch = (process.argv.indexOf('--watch') !== -1);
 
 module.exports = {
   devtool: 'source-map',
-  entry: './src/index.js',
+  entry: {
+    bundle: './src/index.js',
+    sandbox: './src/sandbox.js'
+  },
   output: {
     path: __dirname,
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   module: {
     noParse: [

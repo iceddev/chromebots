@@ -1,0 +1,9 @@
+:local(.console) {
+  height: 200px;
+  box-shadow: inset 0 10px 15px -10px #272822
+  background-color: white;
+  padding: 10px;
+  overflow: auto;
+  white-space: pre-wrap;
+  margin: 0;
+}

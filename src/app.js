@@ -3,7 +3,7 @@
 const React = require('react');
 
 const Appbar = require('./views/appbar');
-const Editor = require('./views/editor');
+const Main = require('./views/main');
 
 function application(app, opts, done){
 
@@ -18,7 +18,7 @@ function application(app, opts, done){
   app.view('editor', function(el, cb){
     console.log('editor render');
 
-    React.render(<Editor workspace={workspace} />, el, cb);
+    React.render(<Main workspace={workspace} />, el, cb);
   });
 
   workspace.updateContent(opts.initial, done);

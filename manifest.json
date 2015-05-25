@@ -14,5 +14,8 @@
         "background.js"
       ]
     }
+  },
+  "sandbox": {
+    "pages": ["sandbox.html"]
   }
 }

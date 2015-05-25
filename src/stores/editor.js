@@ -12,7 +12,9 @@ class EditorStore {
     });
 
     this.state = {
-      value: ''
+      value: '',
+      mode: 'javascript',
+      theme: 'monokai'
     };
   }
 

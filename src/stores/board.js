@@ -5,19 +5,31 @@ const serial = require('serialport');
 
 const alt = require('../alt');
 
-const { selectPort, refreshDevices } = require('../actions/board');
+const { selectPort, refreshDevices, runCode, resetSandbox } = require('../actions/board');
+
+function createSandbox(){
+  var sandbox = document.createElement('iframe');
+  sandbox.src = 'sandbox.html';
+  sandbox.style.display = 'none';
+  document.body.appendChild(sandbox);
+  return sandbox;
+}
 
 class BoardStore {
   constructor(){
     this.bindListeners({
       onPortSelect: selectPort,
-      onRefreshDevices: refreshDevices
+      onRefreshDevices: refreshDevices,
+      onRun: runCode,
+      onResetSandbox: resetSandbox
     });
 
     this.state = {
       devices: [],
       port: null
     };
+
+    this.sandbox = createSandbox();
 
     this.onRefreshDevices();
   }
@@ -55,6 +67,26 @@ class BoardStore {
     this.setState({
       port: port
     });
+  }
+
+  onResetSandbox(){
+    const { sandbox } = this;
+
+    sandbox.src = sandbox.src + '';
+  }
+
+  onRun(code){
+    // reset sandbox JS
+    this.onResetSandbox();
+
+    const { contentWindow } = this.sandbox;
+
+    setTimeout(function(){
+      contentWindow.postMessage({
+        command: 'runScript',
+        payload: code
+      }, '*');
+    }, 100);
   }
 }
 

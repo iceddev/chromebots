@@ -9,6 +9,12 @@ class BoardActions {
   refreshDevices(){
     this.dispatch();
   }
+  runCode(code){
+    this.dispatch(code);
+  }
+  resetSandbox(){
+    this.dispatch();
+  }
 }
 
 module.exports = alt.createActions(BoardActions);
