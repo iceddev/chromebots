@@ -18,7 +18,7 @@
     "alt": "^0.16.5",
     "classnames": "^2.1.1",
     "codemirror": "^4.13.0",
-    "firmata": "^0.5.2",
+    "firmata": "git://github.com/jgautier/firmata",
     "frylord": "^0.5.0",
     "holovisor": "^0.2.0",
     "iggins": "^0.1.0",
