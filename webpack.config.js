@@ -69,6 +69,9 @@ module.exports = {
       serialport: 'browser-serialport'
     }
   },
+  externals: {
+    repl: 'repl'
+  },
   bail: true,
   watch: shouldWatch
 };

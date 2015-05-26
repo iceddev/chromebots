@@ -60,7 +60,7 @@ SerialPort.prototype.simulateRead = function (data) {
 
 SerialPort.prototype.write = function (buffer, callback) {
   //Make sure its not a browserify faux Buffer.
-  if (buffer instanceof ArrayBuffer === false) {
+  if (buffer instanceof ArrayBuffer == false) {
     buffer = buffer2ArrayBuffer(buffer);
   }
 

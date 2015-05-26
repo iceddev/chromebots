@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const serial = require('serialport');
+const SerialPort = serial.SerialPort;
 
 const alt = require('../alt');
 
@@ -26,12 +27,43 @@ class BoardStore {
 
     this.state = {
       devices: [],
-      port: null
+      port: null,
+      code: null
     };
 
     this.sandbox = createSandbox();
 
     this.onRefreshDevices();
+
+
+    window.addEventListener('message', (event) => {
+      const { contentWindow } = this.sandbox;
+
+      const { command, payload } = event.data;
+
+      if(command !== 'open' && command !== 'ready' && command !== 'write'){
+        return;
+      }
+
+      if(command === 'open'){
+        console.log(event.data);
+        return;
+      }
+
+      if(command === 'write' && this.connectedSerial && payload){
+        this.connectedSerial.write(payload, function(err){
+          console.log(arguments);
+        });
+        return;
+      }
+
+      if(command === 'ready'){
+        contentWindow.postMessage({
+          command: 'runScript',
+          payload: this.state.code
+        }, '*');
+      }
+    });
   }
 
   onRefreshDevices(){
@@ -70,7 +102,14 @@ class BoardStore {
   }
 
   onResetSandbox(){
-    const { sandbox } = this;
+    const { sandbox, connectedSerial } = this;
+
+    if(connectedSerial){
+      // connectedSerial.on('close', function(){
+      //   setTimeout(startupJ5, 1000);
+      // });
+      connectedSerial.close();
+    }
 
     sandbox.src = sandbox.src + '';
   }
@@ -81,12 +120,18 @@ class BoardStore {
 
     const { contentWindow } = this.sandbox;
 
-    setTimeout(function(){
+    this.connectedSerial = new SerialPort(this.state.port, {
+      baudrate: 57600,
+      buffersize: 1
+    });
+    this.connectedSerial.on('data', function(data){
       contentWindow.postMessage({
-        command: 'runScript',
-        payload: code
+        command: 'write',
+        payload: data
       }, '*');
-    }, 100);
+    });
+
+    this.setState({ code: code });
   }
 }
 

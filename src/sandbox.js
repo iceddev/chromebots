@@ -2,17 +2,17 @@ window.repl = {}; // fake it til you make it
 
 // var $ = require('jquery');
 var _ = require('lodash');
-// var five = require('johnny-five');
-// var firmata = require('firmata');
+var five = require('johnny-five');
+var firmata = require('firmata');
 var SerialPort = require('./lib/post-serial');
 
-// var Repl = require('johnny-five/lib/repl');
-// Repl.isBlocked = true;
+var Repl = require('johnny-five/lib/repl');
+Repl.isBlocked = true;
 
 // window.$ = $;
 window._ = _;
-// window.five = five;
-// window.firmata = firmata;
+window.five = five;
+window.firmata = firmata;
 
 var connectedSerial, io;
 
@@ -76,23 +76,22 @@ window.addEventListener('message', function(event) {
     connectedSerial = new SerialPort(window.parent);
     notify('connecting...');
 
-    // window.io = io = new firmata.Board(connectedSerial, {repl: false, skipHandshake: false, samplingInterval: 300});
-    // io.once('ready', function(){
+    window.io = io = new firmata.Board(connectedSerial, {repl: false, skipHandshake: false, samplingInterval: 300});
+    io.once('ready', function(){
       notify('Connect successful');
-      // io.name = 'Firmata';
+      io.name = 'Firmata';
+      io.isReady = true;
 
       try {
-        new Function(payload)();
-        // io.isReady = true;
-        // io.emit('connect', {});
-        // io.emit('ready', {});
+        const f = new Function(payload);
+        f();
         notify('Script run successful');
       } catch(e){
         // TODO: should this be a notify?
         console.error(e);
       }
-    // });
-    // io.on('error', console.error);
+    });
+    io.on('error', console.error);
   }
 });
 

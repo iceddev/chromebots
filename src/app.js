@@ -5,9 +5,15 @@ const React = require('react');
 const Appbar = require('./views/appbar');
 const Main = require('./views/main');
 
+const editorStore = require('./stores/editor');
+
+const { inputChange } = require('./actions/editor');
+
 function application(app, opts, done){
 
   const { workspace } = app;
+
+  editorStore.workspace = workspace;
 
   app.view('appbar', function(el, cb){
     console.log('appbar render');
@@ -21,7 +27,9 @@ function application(app, opts, done){
     React.render(<Main workspace={workspace} />, el, cb);
   });
 
-  workspace.updateContent(opts.initial, done);
+  inputChange(opts.initial);
+
+  done();
 }
 
 module.exports = application;

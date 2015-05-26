@@ -55,8 +55,6 @@ class Main extends React.Component {
 
 module.exports = connectToStores(Main, {
   getStores({ workspace }){
-    editorStore.workspace = workspace;
-
     return {
       editor: editorStore,
       console: consoleStore

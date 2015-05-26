@@ -4,6 +4,24 @@ const Irken = require('irken');
 
 let app = new Irken();
 
+const initial = `
+/*
+ You have the following variables availaible to your script:
+   five  = The full johnny-five API !
+   io    = the firmata instance for the board
+   $     = jQuery, because you might already know jQuery
+   _     = lodash, because lodash is awesome
+*/
+
+var board = new five.Board({io: io});
+
+board.on('ready', function(){
+  // Default to pin 13
+  var led = new five.Led(13);
+  led.blink();
+});
+`;
+
 var plugins = [
   {
     register: require('frylord'),
@@ -26,7 +44,7 @@ var plugins = [
   {
     register: require('./app'),
     options: {
-      initial: ''
+      initial: initial
     }
   },
   {
