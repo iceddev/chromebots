@@ -1,35 +1,23 @@
-window.repl = {}; // fake it til you make it
+'use strict';
 
-// var $ = require('jquery');
-var _ = require('lodash');
-var five = require('johnny-five');
-var firmata = require('firmata');
+const _ = window._ = require('lodash');
+const five = window.five = require('johnny-five');
+const firmata = window.firmata = require('firmata');
+const shimmer = require('shimmer');
+
 var SerialPort = require('./lib/post-serial');
 
 var Repl = require('johnny-five/lib/repl');
 Repl.prototype.initialize = function(callback){
-  console.log('repl initialize stub');
   this.emit('ready');
   if(typeof callback === 'function'){
     callback();
   }
 };
 
-// window.$ = $;
-window._ = _;
-window.five = five;
-window.firmata = firmata;
-
 var connectedSerial, io;
 
 console.log('launching sandbox');
-
-//browserify should shim stdin
-process.stdin = process.stdin || {};
-process.stdin.resume = function(){};
-process.stdin.setEncoding = function(){};
-process.stdin.once = function(){};
-
 
 function sendCommand(command, payload){
   const msg = {
@@ -49,34 +37,31 @@ function log(type, value){
   sendCommand('log', payload);
 }
 
-// TODO: use shimmer
-var ogLog = console.log.bind(console);
-var ogWarn = console.warn.bind(console);
-var ogError = console.error.bind(console);
-
-console.log = function(msg){
-  log('log', msg);
-  ogLog.apply(null, arguments);
-};
-
-console.warn = function(msg){
-  log('warn', msg);
-  ogWarn.apply(null, arguments);
-};
-
-console.error = function(msg){
-  log('error', msg);
-  ogError.apply(null, arguments);
-};
+shimmer.wrap(console, 'log', function(original){
+  return function(msg){
+    log('log', msg);
+    return original.apply(this, arguments);
+  };
+});
+shimmer.wrap(console, 'warn', function(original){
+  return function(msg){
+    log('warn', msg);
+    return original.apply(this, arguments);
+  };
+});
+shimmer.wrap(console, 'error', function(original){
+  return function(msg){
+    log('error', msg);
+    return original.apply(this, arguments);
+  };
+});
 
 function notify(msg){
   log('notification', msg);
 }
 
 window.addEventListener('message', function(event) {
-  var data = event.data;
-  var command = data && data.command;
-  var payload = data && data.payload;
+  const { command, payload } = event.data;
   if(command === 'runScript' && payload) {
 
     connectedSerial = new SerialPort(window.parent);

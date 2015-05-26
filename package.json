@@ -33,6 +33,7 @@
     "react-mfb-iceddev": "^0.1.0",
     "react-select": "^0.4.0",
     "react-style": "^0.4.0",
+    "shimmer": "^1.0.0",
     "skrim": "0.0.3",
     "snacks": "^0.2.0",
     "through2": "^0.6.5",
